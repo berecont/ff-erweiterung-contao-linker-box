@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contao Quick Links</title>
+  <style>
+    :root {
+      --brand: #E28F35;
+      --txt: #1f2328;
+      --txt-dark: #ddd;
+      --muted: #6b7280;
+      --bg: #ffffff;
+      --bg-dark: #121416;
+      --row-dark: #151619;
+      --card: #f7f7f8;
+      --card-dark: #32363E;
+      --br: 12px;
+    }
+    html, body { margin:0; padding:0; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif;
+      background: var(--bg-dark);
+      color: var(--txt-dark);
+      padding: 14px;
+      min-width: 360px;
+    }
+    .card {
+      background: var(--card-dark);
+      border-radius: var(--br);
+      padding: 12px;
+      border: 1px solid #e5e7eb;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    }
+    .hdr {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin-bottom: 8px;
+    }
+    .hdr h2 {
+      font-size: 14px;
+      margin: 0;
+      font-weight: 600;
+      letter-spacing: .2px;
+    }
+    .domain {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+      word-break: break-all;
+      font-size: 12px;
+      color: var(--muted);
+      background: #fff;
+      border-radius: 8px;
+      padding: 6px 8px;
+      border: 1px solid #ececec;
+    }
+
+    .rows { display:flex; flex-direction:column; gap:8px; }
+
+    .row {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      background: var(--row-dark);
+      border:1px solid #ececec;
+      border-radius: 10px;
+      padding: 8px;
+    }
+
+
+    .left {
+      display:flex;
+      align-items:center;
+      gap:8px;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+    .label {
+      display:flex;
+      align-items:center;
+      gap:6px;
+      font-weight:600;
+      font-size: 13px;
+      white-space: nowrap;
+      text-decoration: none;
+      color: var(--txt-dark);
+      cursor: pointer;
+    }
+    .label:hover { text-decoration: underline; }
+
+    .label .icon-inline {
+      width: 16px; height: 16px; display:inline-block;
+    }
+
+    .actions {
+      display:flex;
+      gap:6px;
+      flex: 0 0 auto;
+    }
+    .btn {
+      border: 1px solid #e5e7eb;
+      background:#fff;
+      padding: 6px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 30px;
+      height: 30px;
+    }
+    .btn:hover { border-color: #d1d5db; }
+    .btn img { width: 16px; height: 16px; display:block; }
+
+    .footer {
+      display:flex;
+      justify-content:flex-end;
+      margin-top:10px;
+    }
+    .btn-primary {
+      border: 1px solid var(--brand);
+      background: var(--brand);
+      color: #fff;
+      padding: 8px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .btn-primary:hover { filter: brightness(0.96); }
+
+    #error { color:#b00020; margin-top:8px; display:none; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="hdr">
+      <h2>Domain</h2>
+      <span id="origin" class="domain">–</span>
+    </div>
+
+    <div class="rows">
+      <!-- Frontend (Root) -->
+      <div class="row" data-key="frontend">
+        <div class="left">
+          <a class="label" id="link-frontend" href="#" data-key="frontend">
+            <img class="icon-inline" id="favicon-frontend" alt="" hidden>
+            Frontend
+          </a>
+        </div>
+        <div class="actions">
+          <button class="btn" data-open="frontend" title="Im neuen Tab öffnen" aria-label="Im neuen Tab öffnen">
+            <img src="/icons/box-arrow-up-right.svg" alt="" />
+          </button>
+          <button class="btn" data-copy="frontend" title="Link kopieren" aria-label="Link kopieren">
+            <img src="/icons/copy.svg" alt="" />
+          </button>
+        </div>
+      </div>
+
+      <!-- Contao (mit Icon) -->
+      <div class="row" data-key="contao">
+        <div class="left">
+          <a class="label" id="link-contao" href="#" data-key="contao">
+            <img class="icon-inline" src="/icon/contao.png" alt="" />
+            Backend
+          </a>
+        </div>
+        <div class="actions">
+          <button class="btn" data-open="contao" title="Im neuen Tab öffnen" aria-label="Im neuen Tab öffnen">
+            <img src="/icons/box-arrow-up-right.svg" alt="" />
+          </button>
+          <button class="btn" data-copy="contao" title="Link kopieren" aria-label="Link kopieren">
+            <img src="/icons/copy.svg" alt="" />
+          </button>
+        </div>
+      </div>
+
+      <!-- Contao Manager -->
+      <div class="row" data-key="manager">
+        <div class="left">
+          <a class="label" id="link-manager" href="#" data-key="manager">
+            <img class="icon-inline" src="/icon/contao.png" alt="" />
+            Contao Manager
+          </a>
+        </div>
+        <div class="actions">
+          <button class="btn" data-open="manager" title="Im neuen Tab öffnen" aria-label="Im neuen Tab öffnen">
+            <img src="/icons/box-arrow-up-right.svg" alt="" />
+          </button>
+          <button class="btn" data-copy="manager" title="Link kopieren" aria-label="Link kopieren">
+            <img src="/icons/copy.svg" alt="" />
+          </button>
+        </div>
+      </div>
+
+      <!-- Extensions (fixe URL) -->
+      <div class="row" data-key="extensions">
+        <div class="left">
+          <a class="label" id="link-extensions" href="#" data-key="extensions">
+            <img class="icon-inline" src="/icon/contao.png" alt="" />
+            Extensions
+          </a>
+        </div>
+        <div class="actions">
+          <button class="btn" data-open="extensions" title="Im neuen Tab öffnen" aria-label="Im neuen Tab öffnen">
+            <img src="/icons/box-arrow-up-right.svg" alt="" />
+          </button>
+          <button class="btn" data-copy="extensions" title="Link kopieren" aria-label="Link kopieren">
+            <img src="/icons/copy.svg" alt="" />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <button id="copy-all" class="btn-primary">Alle Links in Zwischenablage kopieren</button>
+    </div>
+
+    <p id="error"></p>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
